@@ -1,2 +1,2 @@
 // @flow
-export { default } from './MakeAsyncFunction'
+export { default } from './useAsyncFunction'

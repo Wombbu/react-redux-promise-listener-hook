@@ -3,7 +3,7 @@ import TestUtils from 'react-dom/test-utils'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import createListener from 'redux-promise-listener'
-import MakeAsyncFunction from './MakeAsyncFunction'
+import MakeAsyncFunction from './useAsyncFunction'
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 const minimalMockProps = {
