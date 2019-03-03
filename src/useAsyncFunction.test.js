@@ -1,9 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import TestUtils from 'react-dom/test-utils'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import createListener from 'redux-promise-listener'
-import MakeAsyncFunction from './useAsyncFunction'
+import useAsyncFunction from './useAsyncFunction'
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 const minimalMockProps = {
@@ -16,19 +16,6 @@ const minimalMockProps = {
 }
 
 describe('MakeAsyncFunction', () => {
-  it('should skip all tests', () => {})
-
-  /*
-  it('should print a warning with no children render function specified', () => {
-    const spy = jest.spyOn(global.console, 'error').mockImplementation(() => {})
-    TestUtils.renderIntoDocument(<MakeAsyncFunction {...minimalMockProps} />)
-    expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveBeenCalledWith(
-      'Warning: Must provide a render function as children'
-    )
-    spy.mockRestore()
-  })
-
   it('should dispatch start action, and resolve on resolve action', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
@@ -45,29 +32,30 @@ describe('MakeAsyncFunction', () => {
     expect(reducer).toHaveBeenCalledTimes(1)
     expect(reducer.mock.calls[0][0]).toBe(initialState)
 
+    const TestComponent = () => {
+      const config = {
+        start: 'SAVE',
+        resolve: 'SAVE_SUCCESS',
+        reject: 'SAVE_ERROR'
+      }
+      const save = useAsyncFunction(config, listener)
+      expect(save).toBeDefined()
+      expect(typeof save).toBe('function')
+      return (
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              save().then(resolve, reject)
+            }}
+          />
+        </div>
+      )
+    }
+
     const dom = TestUtils.renderIntoDocument(
       <Provider store={store}>
-        <MakeAsyncFunction
-          listener={listener}
-          start="SAVE"
-          resolve="SAVE_SUCCESS"
-          reject="SAVE_ERROR"
-        >
-          {save => {
-            expect(save).toBeDefined()
-            expect(typeof save).toBe('function')
-            return (
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    save().then(resolve, reject)
-                  }}
-                />
-              </div>
-            )
-          }}
-        </MakeAsyncFunction>
+        <TestComponent />
       </Provider>
     )
     const button = TestUtils.findRenderedDOMComponentWithTag(dom, 'button')
@@ -109,29 +97,30 @@ describe('MakeAsyncFunction', () => {
     expect(reducer).toHaveBeenCalledTimes(1)
     expect(reducer.mock.calls[0][0]).toBe(initialState)
 
+    const TestComponent = () => {
+      const config = {
+        start: 'SAVE',
+        resolve: 'SAVE_SUCCESS',
+        reject: 'SAVE_ERROR'
+      }
+      const save = useAsyncFunction(config, listener)
+      expect(save).toBeDefined()
+      expect(typeof save).toBe('function')
+      return (
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              save().then(resolve, reject)
+            }}
+          />
+        </div>
+      )
+    }
+
     const dom = TestUtils.renderIntoDocument(
       <Provider store={store}>
-        <MakeAsyncFunction
-          listener={listener}
-          start="SAVE"
-          resolve="SAVE_SUCCESS"
-          reject="SAVE_ERROR"
-        >
-          {save => {
-            expect(save).toBeDefined()
-            expect(typeof save).toBe('function')
-            return (
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    save().then(resolve, reject)
-                  }}
-                />
-              </div>
-            )
-          }}
-        </MakeAsyncFunction>
+        <TestComponent />
       </Provider>
     )
     const button = TestUtils.findRenderedDOMComponentWithTag(dom, 'button')
@@ -173,45 +162,31 @@ describe('MakeAsyncFunction', () => {
     expect(reducer).toHaveBeenCalledTimes(1)
     expect(reducer.mock.calls[0][0]).toBe(initialState)
 
-    class Container extends React.Component {
-      state = {
-        resolveAction: 'SAVE_SUCCESS'
+    const Container = () => {
+      const [resolveAction, setResolveAction] = React.useState('SAVE_SUCCESS')
+      const config = {
+        start: 'SAVE',
+        resolve: resolveAction,
+        reject: 'SAVE_ERROR'
       }
-
-      render() {
-        return (
+      const save = useAsyncFunction(config, listener)
+      expect(save).toBeDefined()
+      expect(typeof save).toBe('function')
+      return (
+        <div>
           <div>
-            <MakeAsyncFunction
-              listener={listener}
-              start="SAVE"
-              resolve={this.state.resolveAction}
-              reject="SAVE_ERROR"
-            >
-              {save => {
-                expect(save).toBeDefined()
-                expect(typeof save).toBe('function')
-                return (
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        save().then(resolve, reject)
-                      }}
-                    />
-                  </div>
-                )
+            <button
+              type="button"
+              onClick={() => {
+                save().then(resolve, reject)
               }}
-            </MakeAsyncFunction>
-            <span
-              onClick={() =>
-                this.setState({ resolveAction: 'OTHER_SAVE_SUCCESS' })
-              }
-            >
-              Change Action
-            </span>
+            />
           </div>
-        )
-      }
+          <span onClick={() => setResolveAction('OTHER_SAVE_SUCCESS')}>
+            Change Action
+          </span>
+        </div>
+      )
     }
 
     const dom = TestUtils.renderIntoDocument(
@@ -281,30 +256,25 @@ describe('MakeAsyncFunction', () => {
       applyMiddleware(listener.middleware)
     )
 
-    class Container extends React.Component {
-      state = {
-        showComponent: true
+    const TestComponent = () => {
+      const config = {
+        start: 'SAVE',
+        resolve: 'SAVE_SUCCESS',
+        reject: 'SAVE_ERROR'
       }
+      const save = useAsyncFunction(config, listener)
+      return <div />
+    }
 
-      render() {
-        return (
-          <div>
-            {this.state.showComponent && (
-              <MakeAsyncFunction
-                listener={listener}
-                start="SAVE"
-                resolve="SAVE_SUCCESS"
-                reject="SAVE_ERROR"
-              >
-                {save => <div />}
-              </MakeAsyncFunction>
-            )}
-            <button onClick={() => this.setState({ showComponent: false })}>
-              Unmount
-            </button>
-          </div>
-        )
-      }
+    const Container = () => {
+      const [showComponent, setShowComponent] = React.useState(true)
+
+      return (
+        <div>
+          {showComponent && <TestComponent />}
+          <button onClick={() => setShowComponent(false)}>Unmount</button>
+        </div>
+      )
     }
 
     const dom = TestUtils.renderIntoDocument(
@@ -318,5 +288,4 @@ describe('MakeAsyncFunction', () => {
 
     TestUtils.Simulate.click(button)
   })
-  */
 })
