@@ -16,7 +16,7 @@ const minimalMockProps = {
 }
 
 describe('MakeAsyncFunction', () => {
-  it('should dispatch start action, and resolve on resolve action', async () => {
+  xit('should dispatch start action, and resolve on resolve action', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
     const reject = jest.fn()
@@ -81,7 +81,7 @@ describe('MakeAsyncFunction', () => {
     expect(reject).not.toHaveBeenCalled()
   })
 
-  it('should dispatch start action, and reject on reject action', async () => {
+  xit('should dispatch start action, and reject on reject action', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
     const reject = jest.fn()
@@ -146,7 +146,7 @@ describe('MakeAsyncFunction', () => {
     expect(reject.mock.calls[0][0]).toBe('Bummer!')
   })
 
-  it('should accept changes to action props', async () => {
+  xit('should accept changes to action props', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
     const reject = jest.fn()
