@@ -1,9 +1,9 @@
-# React Redux Promise Listener
+# React Redux Promise Listener Hook
 
-[![NPM Downloads](https://img.shields.io/npm/dm/react-redux-promise-listener.svg?style=flat)](https://www.npmjs.com/package/react-redux-promise-listener)
-[![Build Status](https://travis-ci.org/erikras/react-redux-promise-listener.svg?branch=master)](https://travis-ci.org/erikras/react-redux-promise-listener)
-[![codecov.io](https://codecov.io/gh/erikras/react-redux-promise-listener/branch/master/graph/badge.svg)](https://codecov.io/gh/erikras/react-redux-promise-listener)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-redux-promise-listener-hook.svg?style=flat)](https://www.npmjs.com/package/react-redux-promise-listener-hook)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+This is a hook version of [`react-redux-promise-listener`](https://github.com/erikras/react-redux-promise-listener) by [Erik Rasmussen](https://github.com/erikras).
 
 ## Why?
 
@@ -11,7 +11,7 @@ Most of the popular React form libraries accept an `onSubmit` function that is e
 
 ### Example
 
-[![Edit 🏁 React Final Form - Async Redux Submission](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/x71mx66z8w)
+[![Edit 🏁 React Final Form - Async Redux Submission](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/0qqx2xo4n)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -19,19 +19,19 @@ Most of the popular React form libraries accept an `onSubmit` function that is e
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-* [Usage](#usage)
-  * [Step 1](#step-1)
-  * [Step 2](#step-2)
-* [API](#api)
-  * [`MakeAsyncFunction: React.Component<Props>`](#makeasyncfunction-reactcomponentprops)
-* [Types](#types)
-  * [`Props`](#props)
-    * [`start: string`](#start-string)
-    * [`resolve: string`](#resolve-string)
-    * [`reject: string`](#reject-string)
-    * [`setPayload?: (action: Object, payload: any) => Object`](#setpayload-action-object-payload-any--object)
-    * [`getPayload?: (action: Object) => any`](#getpayload-action-object--any)
-    * [`getError?: (action: Object) => any`](#geterror-action-object--any)
+- [Usage](#usage)
+  - [Step 1](#step-1)
+  - [Step 2](#step-2)
+- [API](#api)
+  - [`MakeAsyncFunction: React.Component<Props>`](#makeasyncfunction-reactcomponentprops)
+- [Types](#types)
+  - [`Props`](#props)
+    - [`start: string`](#start-string)
+    - [`resolve: string`](#resolve-string)
+    - [`reject: string`](#reject-string)
+    - [`setPayload?: (action: Object, payload: any) => Object`](#setpayload-action-object-payload-any--object)
+    - [`getPayload?: (action: Object) => any`](#getpayload-action-object--any)
+    - [`getError?: (action: Object) => any`](#geterror-action-object--any)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
