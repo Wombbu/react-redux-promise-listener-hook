@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-promise-listener",
-  "version": "1.0.0",
-  "description": "A React component and Redux middleware that allows actions to be converted into Promises",
+  "name": "react-redux-promise-listener-hook",
+  "version": "0.0.1",
+  "description": "A React hook and Redux middleware that allows actions to be converted into Promises",
   "main": "dist/react-redux-promise-listener.cjs.js",
   "jsnext:main": "dist/react-redux-promise-listener.es.js",
   "module": "dist/react-redux-promise-listener.es.js",
@@ -14,19 +14,19 @@
     "precommit": "lint-staged && npm start validate",
     "prepublish": "npm start validate"
   },
-  "author": "Erik Rasmussen <rasmussenerik@gmail.com> (http://github.com/erikras)",
+  "author": "Mikko Matilainen <mikkom@iki.fi> (http://github.com/mikkom)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erikras/react-redux-promise-listener.git"
+    "url": "https://github.com/mikkom/react-redux-promise-listener-hook.git"
   },
   "bugs": {
-    "url": "https://github.com/erikras/react-redux-promise-listener/issues"
+    "url": "https://github.com/mikkom/react-redux-promise-listener-hook/issues"
   },
-  "homepage": "https://github.com/erikras/react-redux-promise-listener#readme",
+  "homepage": "https://github.com/mikkom/react-redux-promise-listener-hook#readme",
   "testEnvironment": "node",
   "devDependencies": {
-    "@types/react": "^16.4.7",
+    "@types/react": "^16.8.6",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -43,6 +43,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-react-hooks": "^1.4.0",
     "flow-bin": "^0.77.0",
     "glow": "^1.2.2",
     "husky": "^0.14.3",
@@ -53,8 +54,8 @@
     "prettier": "^1.14.0",
     "prettier-eslint-cli": "^4.7.1",
     "prop-types": "^15.6.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-promise-listener": "^1.0.0",
@@ -70,7 +71,7 @@
     "redux": ">=3.0.0",
     "redux-promise-listener": ">=1.0.0",
     "prop-types": "^15.6.0",
-    "react": "^15.3.0 || ^16.0.0",
+    "react": "^16.8.0",
     "react-redux": ">=5.0.0"
   },
   "lint-staged": {
