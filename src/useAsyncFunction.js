@@ -1,114 +1,43 @@
 // @flow
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import type {
   AsyncFunction,
   Config,
   PromiseListener
 } from 'redux-promise-listener'
 
-type ChildrenAndListener = {
-  children: ((any) => Promise<any>) => void,
+export default (
+  config: Config,
   listener: PromiseListener
-}
-
-type Props = Config & ChildrenAndListener
-type State = { asyncFunction?: AsyncFunction }
-
-export default class MakeAsyncFunction extends React.Component<Props, State> {
-  props: Props
-  state: State
-
-  static propTypes = {
-    children: PropTypes.func.isRequired,
-    listener: PropTypes.object.isRequired,
-    start: PropTypes.string.isRequired,
-    resolve: PropTypes.string.isRequired,
-    reject: PropTypes.string.isRequired,
-    setPayload: PropTypes.func,
-    getPayload: PropTypes.func,
-    getError: PropTypes.func
-  }
-
-  constructor(props: Props) {
-    super(props)
-    if (
-      process.env.NODE_ENV !== 'production' &&
-      typeof props.children !== 'function'
-    ) {
-      console.error('Warning: Must provide a render function as children')
-    }
-    const {
-      listener,
+): (any => Promise<any>) => {
+  const { start, resolve, reject, setPayload, getPayload, getError } = config
+  const createAsyncFunction = () =>
+    listener.createAsyncFunction({
       start,
       resolve,
       reject,
       setPayload,
       getPayload,
       getError
-    } = props
-    this.state = {
-      asyncFunction: listener.createAsyncFunction({
-        start,
-        resolve,
-        reject,
-        setPayload,
-        getPayload,
-        getError
-      })
-    }
-  }
-
-  unsubscribe = () => {
-    if (this.state.asyncFunction) {
-      this.state.asyncFunction.unsubscribe()
-    }
-  }
-
-  createAsyncFunction = () => {
-    const {
-      listener,
-      start,
-      resolve,
-      reject,
-      setPayload,
-      getPayload,
-      getError
-    } = this.props
-    this.unsubscribe()
-    this.setState({
-      asyncFunction: listener.createAsyncFunction({
-        start,
-        resolve,
-        reject,
-        setPayload,
-        getPayload,
-        getError
-      })
     })
-  }
 
-  componentDidMount() {
-    this.createAsyncFunction()
-  }
+  // $FlowFixMe: Remember to update Flow
+  const [asyncFunction: AsyncFunction, setAsyncFunction] = React.useState(
+    createAsyncFunction()
+  )
 
-  componentDidUpdate(prevProps: Props) {
-    if (
-      prevProps.start !== this.props.start ||
-      prevProps.resolve !== this.props.resolve ||
-      prevProps.reject !== this.props.reject
-    ) {
-      this.createAsyncFunction()
-    }
-  }
+  // $FlowFixMe: Remember to update Flow
+  React.useEffect(
+    () => {
+      asyncFunction.unsubscribe()
+      setAsyncFunction(createAsyncFunction())
 
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
+      return () => {
+        asyncFunction.unsubscribe()
+      }
+    },
+    [start, resolve, reject]
+  )
 
-  render() {
-    return this.props.children && this.state.asyncFunction
-      ? this.props.children(this.state.asyncFunction.asyncFunction)
-      : null
-  }
+  return asyncFunction.asyncFunction
 }
