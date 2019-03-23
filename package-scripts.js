@@ -72,10 +72,18 @@ module.exports = {
       description: 'flow check the entire project',
       script: 'flow check'
     },
+    checkEngines: {
+      description:
+        'verify that engine versions satisfy constraints specified in package.json',
+      script: 'check-engines'
+    },
     validate: {
       description:
         'This runs several scripts to make sure things look good before committing or on clean install',
-      default: concurrent.nps('lint', 'flow', 'build.andTest', 'test')
+      default: series(
+        'check-engines',
+        concurrent.nps('lint', 'flow', 'build.andTest', 'test')
+      )
     }
   },
   options: {
