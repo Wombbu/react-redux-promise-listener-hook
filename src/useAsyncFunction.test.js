@@ -16,7 +16,7 @@ const minimalMockProps = {
 }
 
 describe('MakeAsyncFunction', () => {
-  xit('should dispatch start action, and resolve on resolve action', async () => {
+  it('should dispatch start action, and resolve on resolve action', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
     const reject = jest.fn()
@@ -53,15 +53,20 @@ describe('MakeAsyncFunction', () => {
       )
     }
 
-    const dom = TestUtils.renderIntoDocument(
-      <Provider store={store}>
-        <TestComponent />
-      </Provider>
-    )
+    let dom
+    TestUtils.act(() => {
+      dom = TestUtils.renderIntoDocument(
+        <Provider store={store}>
+          <TestComponent />
+        </Provider>
+      )
+    })
     const button = TestUtils.findRenderedDOMComponentWithTag(dom, 'button')
     expect(button).toBeDefined()
 
-    TestUtils.Simulate.click(button)
+    TestUtils.act(() => {
+      TestUtils.Simulate.click(button)
+    })
 
     expect(reducer).toHaveBeenCalledTimes(2)
     expect(reducer.mock.calls[1][1]).toEqual({ type: 'SAVE' })
@@ -81,7 +86,7 @@ describe('MakeAsyncFunction', () => {
     expect(reject).not.toHaveBeenCalled()
   })
 
-  xit('should dispatch start action, and reject on reject action', async () => {
+  it('should dispatch start action, and reject on reject action', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
     const reject = jest.fn()
@@ -118,15 +123,20 @@ describe('MakeAsyncFunction', () => {
       )
     }
 
-    const dom = TestUtils.renderIntoDocument(
-      <Provider store={store}>
-        <TestComponent />
-      </Provider>
-    )
+    let dom
+    TestUtils.act(() => {
+      dom = TestUtils.renderIntoDocument(
+        <Provider store={store}>
+          <TestComponent />
+        </Provider>
+      )
+    })
     const button = TestUtils.findRenderedDOMComponentWithTag(dom, 'button')
     expect(button).toBeDefined()
 
-    TestUtils.Simulate.click(button)
+    TestUtils.act(() => {
+      TestUtils.Simulate.click(button)
+    })
 
     expect(reducer).toHaveBeenCalledTimes(2)
     expect(reducer.mock.calls[1][1]).toEqual({ type: 'SAVE' })
@@ -146,7 +156,7 @@ describe('MakeAsyncFunction', () => {
     expect(reject.mock.calls[0][0]).toBe('Bummer!')
   })
 
-  xit('should accept changes to action props', async () => {
+  it('should accept changes to action props', async () => {
     const reducer = jest.fn((state, action) => state)
     const resolve = jest.fn()
     const reject = jest.fn()
@@ -189,18 +199,23 @@ describe('MakeAsyncFunction', () => {
       )
     }
 
-    const dom = TestUtils.renderIntoDocument(
-      <Provider store={store}>
-        <Container />
-      </Provider>
-    )
+    let dom
+    TestUtils.act(() => {
+      dom = TestUtils.renderIntoDocument(
+        <Provider store={store}>
+          <Container />
+        </Provider>
+      )
+    })
 
     const button = TestUtils.findRenderedDOMComponentWithTag(dom, 'button')
     const changeAction = TestUtils.findRenderedDOMComponentWithTag(dom, 'span')
     expect(button).toBeDefined()
     expect(changeAction).toBeDefined()
 
-    TestUtils.Simulate.click(button)
+    TestUtils.act(() => {
+      TestUtils.Simulate.click(button)
+    })
 
     expect(reducer).toHaveBeenCalledTimes(2)
     expect(reducer.mock.calls[1][1]).toEqual({ type: 'SAVE' })
@@ -219,11 +234,15 @@ describe('MakeAsyncFunction', () => {
     expect(resolve.mock.calls[0][0]).toBe('Great!')
     expect(reject).not.toHaveBeenCalled()
 
-    TestUtils.Simulate.click(changeAction)
+    TestUtils.act(() => {
+      TestUtils.Simulate.click(changeAction)
+    })
 
     // Click save again
 
-    TestUtils.Simulate.click(button)
+    TestUtils.act(() => {
+      TestUtils.Simulate.click(button)
+    })
 
     expect(reducer).toHaveBeenCalledTimes(4)
     expect(reducer.mock.calls[3][1]).toEqual({ type: 'SAVE' })
@@ -277,15 +296,20 @@ describe('MakeAsyncFunction', () => {
       )
     }
 
-    const dom = TestUtils.renderIntoDocument(
-      <Provider store={store}>
-        <Container />
-      </Provider>
-    )
+    let dom
+    TestUtils.act(() => {
+      dom = TestUtils.renderIntoDocument(
+        <Provider store={store}>
+          <Container />
+        </Provider>
+      )
+    })
 
     const button = TestUtils.findRenderedDOMComponentWithTag(dom, 'button')
     expect(button).toBeDefined()
 
-    TestUtils.Simulate.click(button)
+    TestUtils.act(() => {
+      TestUtils.Simulate.click(button)
+    })
   })
 })
