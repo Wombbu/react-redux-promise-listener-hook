@@ -1,6 +1,6 @@
 {
   "name": "react-redux-promise-listener-hook",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A React hook and Redux middleware that allows actions to be converted into Promises",
   "engines": {
     "node": "^8"
