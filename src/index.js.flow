@@ -1,14 +1,7 @@
 // @flow
-import * as React from 'react'
-import type { SetPayload, GetPayload } from 'redux-promise-listener'
+import type { Config, PromiseListener } from 'redux-promise-listener'
 
-type Props = {
-  start: string,
-  resolve: string,
-  reject: string,
-  setPayload?: SetPayload,
-  getPayload?: GetPayload,
-  getError?: GetPayload
-}
-
-declare export default React.ComponentType<Props>
+declare export default function useAsyncFunction(
+  config: Config,
+  listener: PromiseListener
+): any => Promise<any>
