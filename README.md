@@ -68,7 +68,7 @@ const asyncFunc = useAsyncFunction(config, promiseListener);
 
 ## API
 
-### `MakeAsyncFunction: (config: Config, promiseListener: PromiseListener)`
+### `useAsyncFunction: (config: Config, promiseListener: PromiseListener) => Promise<any>`
 
 A React hook that creates an async function.
 
