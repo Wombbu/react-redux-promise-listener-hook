@@ -14,24 +14,23 @@ Most of the popular React form libraries accept an `onSubmit` function that is e
 [![Edit 🏁 React Final Form - Async Redux Submission](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/0qqx2xo4n)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Usage](#usage)
   - [Step 1](#step-1)
   - [Step 2](#step-2)
 - [API](#api)
-  - [`MakeAsyncFunction: React.Component<Props>`](#makeasyncfunction-reactcomponentprops)
+  - [`useAsyncFunction: (config: Config, promiseListener: PromiseListener) => Promise<any>`](#useasyncfunction-config-config-promiselistener-promiselistener--promiseany)
 - [Types](#types)
-  - [`Props`](#props)
+  - [`Config`](#config)
     - [`start: string`](#start-string)
     - [`resolve: string`](#resolve-string)
     - [`reject: string`](#reject-string)
     - [`setPayload?: (action: Object, payload: any) => Object`](#setpayload-action-object-payload-any--object)
     - [`getPayload?: (action: Object) => any`](#getpayload-action-object--any)
     - [`getError?: (action: Object) => any`](#geterror-action-object--any)
+  - [`PromiseListener`](#promiselistener)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
