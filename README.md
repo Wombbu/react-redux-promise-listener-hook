@@ -46,35 +46,35 @@ Step 1 involves installing Redux middleware and is detailed [here in the docs of
 Welcome back! You may now create an async function in your React code like so:
 
 ```jsx
-import MakeAsyncFunction from 'react-redux-promise-listener'
+import useAsyncFunction from 'react-redux-promise-listener-hook'
 import { promiseListener } from './store'
 
 ...
 
-<MakeAsyncFunction
-  listener={promiseListener}
-  start="START_ACTION_TYPE"     // the type of action to dispatch when this function is called
-  resolve="RESOLVE_ACTION_TYPE" // the type of action that will resolve the promise
-  reject="REJECT_ACTION_TYPE"   // the type of action that will reject the promise
->{asyncFunc => (
-  <SomeFormLibrary onSubmit={asyncFunc}>
+const config = {
+  start: "START_ACTION_TYPE"     // the type of action to dispatch when this function is called
+  resolve: "RESOLVE_ACTION_TYPE" // the type of action that will resolve the promise
+  reject: "REJECT_ACTION_TYPE"   // the type of action that will reject the promise
+}
+const asyncFunc = useAsyncFunction(config, promiseListener);
 
-    ...
+<SomeFormLibrary onSubmit={asyncFunc}>
 
-    <button type="submit">Submit</button>
-  </SomeFormLibrary>
-)}</MakeAsyncFunction>
+  ...
+
+  <button type="submit">Submit</button>
+</SomeFormLibrary>
 ```
 
 ## API
 
-### `MakeAsyncFunction: React.Component<Props>`
+### `MakeAsyncFunction: (config: Config, promiseListener: PromiseListener)`
 
-A react component that passes an async function to its child render prop.
+A React hook that creates an async function.
 
 ## Types
 
-### `Props`
+### `Config`
 
 #### `start: string`
 
@@ -99,3 +99,7 @@ A function to get the payload out of the resolve action to pass to resolve the p
 #### `getError?: (action: Object) => any`
 
 A function to get the error out of the reject action to pass to reject the promise with. Defaults to `(action) => action.payload`.
+
+### `PromiseListener`
+
+See the [`redux-promise-listener`](https://github.com/erikras/redux-promise-listener#promiselistener) documentation.
