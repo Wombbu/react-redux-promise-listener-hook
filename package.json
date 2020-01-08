@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "A React hook and Redux middleware that allows actions to be converted into Promises",
   "engines": {
-    "node": "^8"
+    "node": ">=8.0.0"
   },
   "main": "dist/react-redux-promise-listener.cjs.js",
   "jsnext:main": "dist/react-redux-promise-listener.es.js",
